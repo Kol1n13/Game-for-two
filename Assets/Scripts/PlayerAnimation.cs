@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Mirror;
@@ -16,56 +15,66 @@ public class PlayerAnimation : NetworkBehaviour
     private void Awake()
     {
         anim = GetComponent<Animator>();
-
-        float result1 = Vector2.SignedAngle(Vector2.up, Vector2.right);
-        Debug.Log("R1 " + result1);
-
-        float result2 = Vector2.SignedAngle(Vector2.up, Vector2.left);
-        Debug.Log("R2 " + result2);
-
-        float result3 = Vector2.SignedAngle(Vector2.up, Vector2.down);
-        Debug.Log("R3 " + result3);
     }
 
-    //MARKER each direction will match with one string element
-    //MARKER We used direction to determine their animation
+    // Этот метод вызывается для установки направления анимации
     public void SetDirection(Vector2 _direction)
     {
+        if (!isOwned) return;  // Используем проверку на владение объектом
+
         string[] directionArray = null;
 
-        if(_direction.magnitude < 0.01)//MARKER Character is static. And his velocity is close to zero
+        if (_direction.magnitude < 0.01f) // Персонаж стоит на месте
         {
             directionArray = staticDirections;
         }
         else
         {
             directionArray = runDirections;
-
-            lastDirection = DirectionToIndex(_direction);//MARKER Get the index of the slcie from the direction vector
+            lastDirection = DirectionToIndex(_direction); // Получение индекса направления
         }
 
+        // Локально играем анимацию
         anim.Play(directionArray[lastDirection]);
+
+        // Отправляем команду на синхронизацию анимации на сервере
+        CmdSyncAnimation(lastDirection, _direction.magnitude < 0.01f);
     }
 
-    //MARKER Converts a Vector2 direction to an index to a slcie around a circle
-    //CORE this goes in a counter-clock direction
+    // Конвертирует Vector2 направление в индекс, который соответствует сегменту окружности (в градусах)
     private int DirectionToIndex(Vector2 _direction)
     {
-        Vector2 norDir = _direction.normalized;//MARKER return this vector with a magnitude of 1 and get the normalized to an index
+        Vector2 norDir = _direction.normalized; // Нормализация вектора
+        float step = 360 / 8; // Угол на сегмент окружности (45 градусов)
+        float offset = step / 2; // Добавляем небольшой оффсет, чтобы получить корректные индексы
 
-        float step = 360 / 8;//MARKER 45 one circle and 8 slices//Calcuate how many degrees one slice is 
-        float offset = step / 2;//MARKER 22.5//OFFSET help us easy to calcuate and get the correct index of the string array
+        float angle = Vector2.SignedAngle(Vector2.up, norDir); // Угол между вектором вверх и направлением персонажа
+        angle += offset;
 
-        float angle = Vector2.SignedAngle(Vector2.up, norDir);//MARKER returns the signed angle in degrees between A and B
-
-        angle += offset;//Help us easy to calcuate and get the correct index of the string array
-
-        if(angle < 0)//avoid the negative number 
+        if (angle < 0) 
         {
-            angle += 360;
+            angle += 360; // Избегаем отрицательных значений углов
         }
 
         float stepCount = angle / step;
-        return Mathf.FloorToInt(stepCount);
+        return Mathf.FloorToInt(stepCount); // Округляем до целого значения для индекса анимации
+    }
+
+    // Команда для синхронизации анимации на сервере
+    [Command]
+    private void CmdSyncAnimation(int direction, bool isStatic)
+    {
+        if (!isServer) return;  // Добавляем проверку, чтобы сервер не отправлял команду сам себе
+        RpcPlayAnimation(direction, isStatic);
+    }
+
+    // RPC для проигрывания анимации на всех клиентах
+    [ClientRpc]
+    private void RpcPlayAnimation(int direction, bool isStatic)
+    {
+        if (isLocalPlayer) return; // Не проигрываем анимацию для локального игрока снова
+
+        string[] directionArray = isStatic ? staticDirections : runDirections;
+        anim.Play(directionArray[direction]); // Проигрываем нужную анимацию на других клиентах
     }
 }

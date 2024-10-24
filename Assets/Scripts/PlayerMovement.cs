@@ -9,6 +9,8 @@ public class PlayerMovement : NetworkBehaviour
     private float moveH, moveV;
     [SerializeField] private float moveSpeed = 1.0f;
     private Camera mainCam;
+    private PlayerAnimation playerAnimation;
+
     private void Awake()
     {
         mainCam = Camera.main;
@@ -17,27 +19,32 @@ public class PlayerMovement : NetworkBehaviour
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        playerAnimation = GetComponentInChildren<PlayerAnimation>(); // Получаем ссылку на компонент анимации
     }
 
     private void FixedUpdate()
     {
         if (!isLocalPlayer) return;
+
+        // Получаем ввод для перемещения
         moveH = Input.GetAxis("Horizontal") * moveSpeed;
         moveV = Input.GetAxis("Vertical") * moveSpeed;
-        rb.linearVelocity = new Vector2(moveH, moveV);//OPTIONAL rb.MovePosition();
+
+        // Используем Rigidbody2D для перемещения
+        rb.linearVelocity = new Vector2(moveH, moveV);
 
         Vector2 direction = new Vector2(moveH, moveV);
 
-        FindObjectOfType<PlayerAnimation>().SetDirection(direction);
+        // Анимация игрока
+        playerAnimation.SetDirection(direction); // Вызываем анимацию через сохранённую ссылку
+
+        // Перемещение камеры
         CameraMovement();
     }
 
     private void CameraMovement()
     {
-        mainCam.transform.localPosition = new Vector3(transform.position.x, transform.position.y, -1f);
-        transform.position = Vector2.MoveTowards(transform.position, mainCam.transform.localPosition, Time.deltaTime);
+        float offsetX = +0.25f;
+        mainCam.transform.position = new Vector3(transform.position.x + offsetX, transform.position.y, -10f);
     }
-
-
-
 }
