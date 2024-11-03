@@ -117,7 +117,9 @@ public class PlayerMovement : NetworkBehaviour
             if (futureBox != null)
             {
                 Vector3 offset = newPosition - oldPos;
-                futureBox.transform.position += offset;
+                var oldFuturePos = boxLink.FuturePos;
+                futureBox.transform.position =  oldFuturePos + offset;
+                boxLink.FuturePos = oldFuturePos + offset;
             }
         }
 
