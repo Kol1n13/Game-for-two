@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Mirror;
 
+
 public class PlayerMovement : NetworkBehaviour
 {
     private Rigidbody2D rb;
@@ -104,9 +105,22 @@ public class PlayerMovement : NetworkBehaviour
     [ClientRpc]
     private void RpcRevilBox(GameObject box)
     {
-        Vector3 placePosition = transform.position + new Vector3(0.2f, -0.2f, 0); 
-        box.transform.position = placePosition;
+        var boxLink = box.GetComponent<BoxLinkManager>();
+        var oldPos = box.transform.position;
+        Vector3 newPosition = transform.position + new Vector3(0.2f, -0.2f, 0);
+        box.transform.position = newPosition;
         box.SetActive(true);
+        
+        if (boxLink != null && boxLink.IsPastBox)
+        {
+            GameObject futureBox = boxLink.FutureBox;
+            if (futureBox != null)
+            {
+                Vector3 offset = newPosition - oldPos;
+                futureBox.transform.position += offset;
+            }
+        }
+
         pickedUpBox = null;
     }
 
