@@ -1,29 +1,32 @@
 using System;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.SceneManagement; 
+using UnityEngine.SceneManagement;
+using Mirror;
 
-public class PlayerHealth : MonoBehaviour
+public class PlayerHealth : NetworkBehaviour
 {
     public int maxHealth = 100;
-    private int currentHealth;
+    [SyncVar] private int currentHealth;
     private bool isTouchingToxicMolly = false;
     public int damagePerTick = 1;
     public float damageInterval = 0.1f;
     private float damageTimer;
 
-    public Slider healthSlider; 
+    public Slider healthSlider;
 
     private void Start()
     {
         currentHealth = maxHealth;
         healthSlider.maxValue = maxHealth;
-        healthSlider.value = currentHealth; 
-        healthSlider.gameObject.SetActive(false); 
+        healthSlider.value = currentHealth;
+        healthSlider.gameObject.SetActive(false);
     }
 
     private void Update()
     {
+        if (!isLocalPlayer) return;
+
         if (isTouchingToxicMolly)
         {
             if (!healthSlider.gameObject.activeSelf)
@@ -35,12 +38,13 @@ public class PlayerHealth : MonoBehaviour
             if (damageTimer >= damageInterval)
             {
                 currentHealth -= damagePerTick;
-                currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth); 
-                healthSlider.value = currentHealth; 
+                currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);
+                healthSlider.value = currentHealth;
                 damageTimer = 0f;
+
                 if (currentHealth <= 0)
                 {
-                    RestartLevel(); 
+                    CmdPlayerDied();
                 }
             }
         }
@@ -69,9 +73,18 @@ public class PlayerHealth : MonoBehaviour
         }
     }
 
-    private void RestartLevel()
+    [Command]
+    private void CmdPlayerDied()
     {
-        // Перезапускаем текущую сцену
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        RpcRestartLevel();
+    }
+
+    [ClientRpc]
+    private void RpcRestartLevel()
+    {
+        if (isServer)
+        {
+            NetworkManager.singleton.ServerChangeScene(SceneManager.GetActiveScene().name);
+        }
     }
 }

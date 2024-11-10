@@ -70,8 +70,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: -4.973, y: 0}
-  m_SizeDelta: {x: 0.0541, y: 0}
+  m_AnchoredPosition: {x: -4.8799, y: -0}
+  m_SizeDelta: {x: -0.1322, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4442902024583780030
 CanvasRenderer:
@@ -265,7 +265,7 @@ MonoBehaviour:
   m_MinValue: 0
   m_MaxValue: 100
   m_WholeNumbers: 0
-  m_Value: 100
+  m_Value: 49.2
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -798,6 +798,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b36fb32b495e20f48a2433e2016f2454, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
   maxHealth: 100
   damagePerTick: 1
   damageInterval: 0.1
