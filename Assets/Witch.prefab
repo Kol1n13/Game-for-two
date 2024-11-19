@@ -691,6 +691,7 @@ MonoBehaviour:
   moveSpeed: 2
   miniBoxPrefab: {fileID: 7112134317763870389, guid: e678e27cd0443ea42abd78cb638fad22,
     type: 3}
+  currentDirection: {x: 1, y: 0, z: 0}
 --- !u!210 &5131816083273548737
 SortingGroup:
   m_ObjectHideFlags: 0
