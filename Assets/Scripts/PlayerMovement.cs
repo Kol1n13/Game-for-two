@@ -17,6 +17,7 @@ public class PlayerMovement : NetworkBehaviour
     [SerializeField] private GameObject miniBoxPrefab; 
     private GameObject miniBoxInstance; 
     private Vector2 lastDirection;
+    public Vector3 currentDirection = Vector3.right;
 
     private void Awake()
     {
@@ -41,6 +42,23 @@ public class PlayerMovement : NetworkBehaviour
         {
             CmdDropDownBox();
         }
+        Vector3 inputDirection = Vector3.zero;
+        
+        if (Input.GetKey(KeyCode.W))
+            inputDirection += (Vector3.up);
+        if (Input.GetKey(KeyCode.S))
+            inputDirection += (Vector3.down );
+        if (Input.GetKey(KeyCode.A))
+            inputDirection += (Vector3.left );
+        if (Input.GetKey(KeyCode.D))
+            inputDirection += (Vector3.right );
+
+        // Если есть направление, нормализуем его
+        if (inputDirection != Vector3.zero)
+        {
+            currentDirection = inputDirection.normalized;
+        }
+        Debug.Log(currentDirection);
     }
 
     private void FixedUpdate()
@@ -107,7 +125,8 @@ public class PlayerMovement : NetworkBehaviour
     {
         var boxLink = box.GetComponent<BoxLinkManager>();
         var oldPos = box.transform.position;
-        Vector3 newPosition = transform.position + new Vector3(0.2f, -0.2f, 0);
+        Vector3 newPosition = transform.position + currentDirection * (0.3f) + new Vector3(0.2f, -0.35f, 0);;
+        
         box.transform.position = newPosition;
         box.SetActive(true);
         
