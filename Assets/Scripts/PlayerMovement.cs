@@ -58,7 +58,6 @@ public class PlayerMovement : NetworkBehaviour
         {
             currentDirection = inputDirection.normalized;
         }
-        Debug.Log(currentDirection);
     }
 
     private void FixedUpdate()
