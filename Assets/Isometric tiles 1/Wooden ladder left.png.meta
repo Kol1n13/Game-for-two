@@ -134,7 +134,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Wooden ladder left_0: -1367597425047964852
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

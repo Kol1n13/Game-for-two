@@ -134,7 +134,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Jail Bar Right_0: 4698619678595988224
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

@@ -134,7 +134,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      saw wall right 2_0: 5250271645366909155
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

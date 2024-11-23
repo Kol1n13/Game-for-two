@@ -134,7 +134,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Saw ground right 2_0: -4207111853532809741
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
