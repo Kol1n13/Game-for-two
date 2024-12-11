@@ -801,7 +801,7 @@ MonoBehaviour:
   syncDirection: 0
   syncMode: 0
   syncInterval: 0
-  maxHealth: 100
+  maxHealth: 20
   damagePerTick: 1
   damageInterval: 0.1
   healthSlider: {fileID: 7917600721365292759}

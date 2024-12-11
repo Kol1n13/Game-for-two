@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 43fc4809f1bf8c44688cf1838bbb7f98
+guid: b28381ec2a3dce5459a8fd396a0eb560
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 166071280471151807
-    second: lift_0
+      213: -3154736879378323553
+    second: FlyerPlayershipAlbedo_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -100,13 +100,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: lift_0
+      name: FlyerPlayershipAlbedo_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 16
-        height: 15
+        width: 32
+        height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -115,8 +115,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: fb490ef13f00e4200800000000000000
-      internalID: 166071280471151807
+      spriteID: f97a4d0d58f1834d0800000000000000
+      internalID: -3154736879378323553
       vertices: []
       indices: 
       edges: []
@@ -134,8 +134,7 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable:
-      lift_0: 166071280471151807
+    nameFileIdTable: {}
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

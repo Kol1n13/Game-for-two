@@ -84,7 +84,7 @@ public class PlayerHealth : NetworkBehaviour
     {
         if (isServer)
         {
-            NetworkManager.singleton.ServerChangeScene(SceneManager.GetActiveScene().name);
+            NetworkManager.singleton.ServerChangeScene("DeathScene");
         }
     }
 }

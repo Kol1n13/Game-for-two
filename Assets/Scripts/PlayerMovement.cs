@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Mirror;
+using UnityEngine.SceneManagement;
 
 
 public class PlayerMovement : NetworkBehaviour
@@ -25,6 +26,7 @@ public class PlayerMovement : NetworkBehaviour
 
     private void Start()
     {
+        DeletePlayer();
         rb = GetComponent<Rigidbody2D>();
         playerAnimation = GetComponentInChildren<PlayerAnimation>();
     }
@@ -41,6 +43,8 @@ public class PlayerMovement : NetworkBehaviour
         {
             CmdDropDownBox();
         }
+
+        
     }
 
     private void FixedUpdate()
@@ -144,6 +148,48 @@ public class PlayerMovement : NetworkBehaviour
         {
             Destroy(miniBoxInstance); 
             miniBoxInstance = null;
+        }
+    }
+    [Command] // Этот метод вызывается на клиенте, но исполняется на сервере
+    private void CmdDeletePlayer()
+    {
+        NetworkServer.Destroy(gameObject); // Уничтожаем объект игрока на сервере
+    }
+    private void DeletePlayer()
+    {
+        if (SceneManager.GetActiveScene().name != "Temple")
+        {
+            if (isServer)
+            {
+                RpcHidePlayer(); // Скрываем игрока на всех клиентах
+                StartCoroutine(DestroyAfterDelay(0.5f)); // Удаляем объект с задержкой
+            }
+            else if (isLocalPlayer)
+            {
+                CmdRequestHideAndDestroy();
+            }
+        }
+    }
+
+    [Command]
+    private void CmdRequestHideAndDestroy()
+    {
+        RpcHidePlayer(); // Скрываем игрока на всех клиентах
+        StartCoroutine(DestroyAfterDelay(0.5f)); // Удаляем объект с задержкой
+    }
+
+    [ClientRpc]
+    private void RpcHidePlayer()
+    {
+        gameObject.SetActive(false); // Мгновенно скрываем объект на всех клиентах
+    }
+
+    private IEnumerator DestroyAfterDelay(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        if (this.gameObject != null)
+        {
+            NetworkServer.Destroy(this.gameObject); // Удаляем объект с сервера (и синхронизируем удаление)
         }
     }
 }
