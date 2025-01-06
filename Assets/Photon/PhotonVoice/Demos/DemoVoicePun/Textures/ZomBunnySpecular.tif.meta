@@ -134,7 +134,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      ZomBunnySpecular_0: -8819938222699977216
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

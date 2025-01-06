@@ -134,7 +134,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      FlyerAsteroidEmissive_0: -2039190355480674430
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

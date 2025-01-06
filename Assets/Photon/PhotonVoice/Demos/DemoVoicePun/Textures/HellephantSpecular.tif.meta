@@ -134,7 +134,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      HellephantSpecular_0: 5856683003679942910
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

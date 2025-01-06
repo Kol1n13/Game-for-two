@@ -134,7 +134,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      FlyerPlayershipOcclusion_0: 8804584261665950444
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

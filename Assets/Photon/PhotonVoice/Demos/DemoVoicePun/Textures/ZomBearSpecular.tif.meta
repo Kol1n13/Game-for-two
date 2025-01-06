@@ -134,7 +134,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      ZomBearSpecular_0: -5522341500580260984
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
