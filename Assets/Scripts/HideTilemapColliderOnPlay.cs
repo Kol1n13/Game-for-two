@@ -12,4 +12,5 @@ public class HideTilemapColliderOnPlay : MonoBehaviour
         tilemapRenderer = GetComponent<TilemapRenderer>();
         tilemapRenderer.enabled = false;
     }
+    
 }

@@ -9,6 +9,7 @@ public class BoxLinkManager : MonoBehaviour
     [SerializeField]
     private GameObject futureBox;
     private Vector3 futurePos;
+    
 
     public bool IsPastBox => isPastBox;
     public GameObject FutureBox => futureBox;
