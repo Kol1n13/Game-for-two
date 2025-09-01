@@ -3,7 +3,10 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 3
-  tags: []
+  tags:
+  - box
+  - Molly
+  - ToxicMolly
   layers:
   - Default
   - TransparentFX
@@ -38,8 +41,17 @@ TagManager:
   - 
   - 
   m_SortingLayers:
+  - name: Background
+    uniqueID: 526294755
+    locked: 0
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Foreground
+    uniqueID: 2130146985
+    locked: 0
+  - name: Collider Debug
+    uniqueID: 3310053101
     locked: 0
   m_RenderingLayers:
   - Default
