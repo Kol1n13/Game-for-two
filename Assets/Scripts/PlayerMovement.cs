@@ -44,10 +44,6 @@ public class PlayerMovement : NetworkBehaviour
         {
             CmdDropDownBox();
         }
-<<<<<<< HEAD
-
-        
-=======
         Vector3 inputDirection = Vector3.zero;
         
         if (Input.GetKey(KeyCode.W))
@@ -64,7 +60,6 @@ public class PlayerMovement : NetworkBehaviour
         {
             currentDirection = inputDirection.normalized;
         }
->>>>>>> Атака-не
     }
 
     private void FixedUpdate()
