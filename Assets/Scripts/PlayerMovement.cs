@@ -173,7 +173,7 @@ public class PlayerMovement : NetworkBehaviour
     }
     private void DeletePlayer()
     {
-        if (SceneManager.GetActiveScene().name != "Temple")
+        if (SceneManager.GetActiveScene().name != "StartLocation")
         {
             if (isServer)
             {
