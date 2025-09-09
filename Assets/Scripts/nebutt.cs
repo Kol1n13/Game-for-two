@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Button : UnityEngine.UIElements.Button
+public class neButton : UnityEngine.UIElements.Button
 {
     
     [SerializeField] private GameObject door;
