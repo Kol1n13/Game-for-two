@@ -209,6 +209,7 @@ GameObject:
   - component: {fileID: 227184804}
   - component: {fileID: 227184803}
   - component: {fileID: 227184802}
+  - component: {fileID: 227184805}
   m_Layer: 5
   m_Name: Button (Legacy) (1)
   m_TagString: Untagged
@@ -280,9 +281,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1269390402}
-        m_TargetAssemblyTypeName: Mirror.NetworkManager, Mirror
-        m_MethodName: StartClient
+      - m_Target: {fileID: 227184805}
+        m_TargetAssemblyTypeName: ClientButton, Assembly-CSharp
+        m_MethodName: OnClientPressed
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -330,6 +331,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 227184800}
   m_CullTransparentMesh: 1
+--- !u!114 &227184805
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 227184800}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 42ff9b94d988f4947b822fe19ecdfd91, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ipInput: {fileID: 1559842041}
 --- !u!1 &375238867
 GameObject:
   m_ObjectHideFlags: 0
@@ -595,6 +609,7 @@ GameObject:
   - component: {fileID: 1269390402}
   - component: {fileID: 1269390400}
   - component: {fileID: 1269390404}
+  - component: {fileID: 1269390405}
   m_Layer: 0
   m_Name: Network Manager
   m_TagString: Untagged
@@ -649,7 +664,7 @@ MonoBehaviour:
   editorAutoStart: 0
   sendRate: 60
   offlineScene: Assets/Scenes/Menu.unity
-  onlineScene: Assets/Scenes/Temple.unity
+  onlineScene: Assets/Scenes/StartLocation.unity
   offlineSceneLoadDelay: 0
   transport: {fileID: 1269390400}
   networkAddress: localhost
@@ -706,6 +721,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   offsetX: 0
   offsetY: 0
+--- !u!114 &1269390405
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1269390399}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0c4cda798b73920468e50cf7d483b72b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1559842039
 GameObject:
   m_ObjectHideFlags: 0
@@ -1138,6 +1165,7 @@ GameObject:
   - component: {fileID: 2022003290}
   - component: {fileID: 2022003289}
   - component: {fileID: 2022003288}
+  - component: {fileID: 2022003291}
   m_Layer: 5
   m_Name: Button (Legacy)
   m_TagString: Untagged
@@ -1209,9 +1237,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1269390402}
-        m_TargetAssemblyTypeName: Mirror.NetworkManager, Mirror
-        m_MethodName: StartHost
+      - m_Target: {fileID: 2022003291}
+        m_TargetAssemblyTypeName: MenuHostButton, Assembly-CSharp
+        m_MethodName: OnClickHost
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1259,6 +1287,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2022003286}
   m_CullTransparentMesh: 1
+--- !u!114 &2022003291
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2022003286}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6fbdae9005f839045832cf1666f9619e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

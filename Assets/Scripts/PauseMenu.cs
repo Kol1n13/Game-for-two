@@ -13,8 +13,8 @@ public class PauseMenu : NetworkBehaviour
     private Button menuButton;
 
     [Header("Host behavior")]
-    [Tooltip("Если true — после того как сервер сменит сцену на Menu, он вызовет StopHost() (прекратит хостинг). Обычно не нужно.")]
-    public bool stopHostWhenHostPressesMenu = false;
+    [Tooltip("Если true — после того как сервер сменит сцену на Menu, он вызовет StopHost() и удалит NetworkManager.")]
+    public bool stopHostWhenHostPressesMenu = true;
 
     void Start()
     {
@@ -104,44 +104,38 @@ public class PauseMenu : NetworkBehaviour
 
         if (isServer)
         {
-            // Если этот локальный игрок — сервер/хост, инициируем смену сцены для всех
+            // Хост: меняем сцену у всех
             Debug.Log("[PauseMenu] Local player is server -> changing scene for everyone to 'Menu'.");
             if (NetworkManager.singleton != null)
             {
                 NetworkManager.singleton.ServerChangeScene("Menu");
-
-                // Опция: остановить хост после смены сцены (по желанию)
                 if (stopHostWhenHostPressesMenu)
                 {
-                    StartCoroutine(StopHostDelayed());
+                    StartCoroutine(KillNetworkManagerDelayed());
                 }
-            }
-            else
-            {
-                Debug.LogWarning("[PauseMenu] NetworkManager.singleton == null when trying to change scene as server.");
             }
         }
         else
         {
-            // Клиент: отключаем только клиента и загружаем локальное меню
+            // Клиент: отключаем и грузим меню
             Debug.Log("[PauseMenu] Local player is client -> disconnecting client and loading local Menu scene.");
             if (NetworkManager.singleton != null)
             {
                 NetworkManager.singleton.StopClient();
+                Destroy(NetworkManager.singleton.gameObject); // <<< костыль
             }
-            // Загрузить локальную сцену Меню (у клиента)
             SceneManager.LoadScene("Menu");
         }
     }
 
-    IEnumerator StopHostDelayed()
+    IEnumerator KillNetworkManagerDelayed()
     {
-        // Небольшая задержка: даём кадр для начала смены сцены у клиентов (по необходимости)
-        yield return null;
+        yield return null; // ждём кадр, чтобы ServerChangeScene отработал
         if (NetworkManager.singleton != null)
         {
-            Debug.Log("[PauseMenu] Stopping host (StopHost).");
+            Debug.Log("[PauseMenu] Stopping and destroying NetworkManager.");
             NetworkManager.singleton.StopHost();
+            Destroy(NetworkManager.singleton.gameObject);
         }
     }
 
