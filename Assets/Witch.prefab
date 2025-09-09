@@ -702,7 +702,7 @@ SortingGroup:
   m_Enabled: 1
   m_SortingLayerID: 2130146985
   m_SortingLayer: 1
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_SortAtRoot: 0
 --- !u!114 &120336301988490961
 MonoBehaviour:
@@ -806,6 +806,8 @@ MonoBehaviour:
   damagePerTick: 1
   damageInterval: 0.1
   healthSlider: {fileID: 7917600721365292759}
+  healthBarCanvasGroup: {fileID: 0}
+  fadeSpeed: 5
 --- !u!1 &8817178380627666332
 GameObject:
   m_ObjectHideFlags: 0
