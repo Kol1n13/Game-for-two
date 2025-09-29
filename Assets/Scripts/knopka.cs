@@ -10,6 +10,7 @@ public class knopka : MonoBehaviour
     [SerializeField] private GameObject[] doors;
     [SerializeField] [CanBeNull] private knopka pairButton;
     [SerializeField] [CanBeNull] private bool isPresent;
+    [SerializeField] private Animator buttonAnimator;
     
     
     void Start()
@@ -39,16 +40,16 @@ public class knopka : MonoBehaviour
         DeActivate();
     }
 
-    private void Activate()
+        private void Activate()
     {
-        Debug.Log("voshel");
+        buttonAnimator.SetBool("pressed", true);
         Array.ForEach(doors, door => door.GetComponent<BoxCollider2D>().enabled = false);
         Array.ForEach(anims, anim => anim.Play("openDoor"));
     }
 
     private void DeActivate()
     {
-        isActive = false;
+        buttonAnimator.SetBool("pressed", false);
         Array.ForEach(doors, door => door.GetComponent<BoxCollider2D>().enabled = true);
         Array.ForEach(anims, anim => anim.Play("closeDoor"));
     }
