@@ -159,7 +159,7 @@ CircleCollider2D:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 16
   m_LayerOverridePriority: 0
   m_ForceSendLayers:
     serializedVersion: 2
@@ -578,7 +578,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6116365709244556738}
   - component: {fileID: 161031510525628622}
-  - component: {fileID: 7435220025372775658}
+  - component: {fileID: 5180796123427395971}
   - component: {fileID: 6134902336875640673}
   - component: {fileID: 5131816083273548737}
   - component: {fileID: 120336301988490961}
@@ -586,6 +586,7 @@ GameObject:
   - component: {fileID: -8360151929561357420}
   - component: {fileID: 3846951044500096237}
   - component: {fileID: -6991149350373116120}
+  - component: {fileID: -8575448649562200021}
   m_Layer: 0
   m_Name: Witch
   m_TagString: Player
@@ -638,8 +639,8 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
---- !u!58 &7435220025372775658
-CircleCollider2D:
+--- !u!61 &5180796123427395971
+BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -672,8 +673,18 @@ CircleCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0.19158804, y: -0.3842284}
-  m_Radius: 0.06390113
+  m_Offset: {x: 0.25129703, y: -0.37950975}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Size: {x: 0.23585206, y: 0.0819968}
+  m_EdgeRadius: 0
 --- !u!114 &6134902336875640673
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -825,6 +836,23 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0
   pausePanel: {fileID: 0}
+  stopHostWhenHostPressesMenu: 1
+--- !u!114 &-8575448649562200021
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8071197855634591496}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa2e1ab52457f07409be1aee37295f79, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
+  coinsText: {fileID: 0}
 --- !u!1 &8817178380627666332
 GameObject:
   m_ObjectHideFlags: 0

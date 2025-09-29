@@ -126,6 +126,13 @@ public class PlayerHealth : NetworkBehaviour
     {
         if (!isLocalPlayer) return;
 
+        HeartPickup heart = other.GetComponent<HeartPickup>();
+        if (heart != null)
+        {
+            // Просим сервер обработать хил
+            CmdPickupHeart(other.gameObject, heart.healPercent);
+        }
+
         if (other.CompareTag("ToxicMolly"))
         {
             isTouchingToxicMolly = true;
@@ -187,5 +194,25 @@ public class PlayerHealth : NetworkBehaviour
     public bool IsAlive()
     {
         return currentHealth > 0;
+    }
+
+    [Command]
+    private void CmdPickupHeart(GameObject heartObj, float healPercent)
+    {
+        if (heartObj == null) return;
+
+        HeartPickup heart = heartObj.GetComponent<HeartPickup>();
+        if (heart == null) return;
+
+        // Проверка: жив ли игрок
+        if (!IsAlive()) return;
+
+        // Проверка: не фулл ли HP
+        if (currentHealth >= maxHealth) return;
+
+        int healAmount = Mathf.RoundToInt(maxHealth * healPercent);
+        currentHealth = Mathf.Clamp(currentHealth + healAmount, 0, maxHealth);
+
+        NetworkServer.Destroy(heartObj); // уничтожаем сердечко
     }
 }
