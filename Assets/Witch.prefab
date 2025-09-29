@@ -585,6 +585,7 @@ GameObject:
   - component: {fileID: -70689960004870400}
   - component: {fileID: -8360151929561357420}
   - component: {fileID: 3846951044500096237}
+  - component: {fileID: -6991149350373116120}
   m_Layer: 0
   m_Name: Witch
   m_TagString: Player
@@ -702,7 +703,7 @@ SortingGroup:
   m_Enabled: 1
   m_SortingLayerID: 2130146985
   m_SortingLayer: 1
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_SortAtRoot: 0
 --- !u!114 &120336301988490961
 MonoBehaviour:
@@ -806,6 +807,24 @@ MonoBehaviour:
   damagePerTick: 1
   damageInterval: 0.1
   healthSlider: {fileID: 7917600721365292759}
+  healthBarCanvasGroup: {fileID: 0}
+  fadeSpeed: 5
+--- !u!114 &-6991149350373116120
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8071197855634591496}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2639020d00a9c5a4e9ce6d134415e4d9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
+  pausePanel: {fileID: 0}
 --- !u!1 &8817178380627666332
 GameObject:
   m_ObjectHideFlags: 0

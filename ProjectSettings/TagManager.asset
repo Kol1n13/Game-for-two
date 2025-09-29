@@ -8,6 +8,8 @@ TagManager:
   - Molly
   - ToxicMolly
   - Trap
+  - Spike
+  - Spikes
   layers:
   - Default
   - TransparentFX

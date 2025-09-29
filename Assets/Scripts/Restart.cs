@@ -8,7 +8,7 @@ public class Restart : NetworkBehaviour
     {
         if (isServer)
         {
-            NetworkManager.singleton.ServerChangeScene("Temple");
+            NetworkManager.singleton.ServerChangeScene("StartLocation");
 
         }
         else
