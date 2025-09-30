@@ -134,7 +134,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      minecraft-pixel-heart-icon-5re1awi9i7gwmzuo_0: -5345984793493641928
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

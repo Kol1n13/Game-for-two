@@ -4,7 +4,7 @@ using UnityEngine.UI;
 
 public class CoinManager : NetworkBehaviour
 {
-    public static CoinManager Instance; // синглтон для удобного доступа
+    public static CoinManager Instance; // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 
     [SyncVar(hook = nameof(OnCoinsChanged))]
     private int totalCoins = 0;
@@ -18,7 +18,7 @@ public class CoinManager : NetworkBehaviour
 
     public override void OnStartClient()
     {
-        // Находим UI текст только на клиенте
+        // пїЅпїЅпїЅпїЅпїЅпїЅпїЅ UI пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
         if (coinsText == null)
         {
             coinsText = GameObject.Find("CoinsText").GetComponent<Text>();
@@ -30,6 +30,12 @@ public class CoinManager : NetworkBehaviour
     public void AddCoin()
     {
         totalCoins++;
+    }
+
+    [Server]
+    public int GetTotalCoins()
+    {
+        return totalCoins;
     }
 
     private void OnCoinsChanged(int oldValue, int newValue)
