@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 5111b85e6f06b8e4193983fc87a82d2c
+guid: f7983c13c9077904aa8fd6afd03afaf8
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 2343756282102506784
-    second: square_stone_detail_E_0
+      213: 8690999461234096150
+    second: square_stone_detail_recolored_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -100,7 +100,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: square_stone_detail_E_0
+      name: square_stone_detail_recolored_0
       rect:
         serializedVersion: 2
         x: 37
@@ -115,8 +115,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 0256fcabbe1b68020800000000000000
-      internalID: 2343756282102506784
+      spriteID: 61838fd86f1ac9870800000000000000
+      internalID: 8690999461234096150
       vertices: []
       indices: 
       edges: []
