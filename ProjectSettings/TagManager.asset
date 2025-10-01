@@ -10,6 +10,7 @@ TagManager:
   - Trap
   - Spike
   - Spikes
+  - EndPanel
   layers:
   - Default
   - TransparentFX

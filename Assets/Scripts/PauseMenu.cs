@@ -101,31 +101,7 @@ public class PauseMenu : NetworkBehaviour
     public void OnMenuPressed()
     {
         if (!isLocalPlayer) return;
-
-        if (isServer)
-        {
-            // Хост: меняем сцену у всех
-            Debug.Log("[PauseMenu] Local player is server -> changing scene for everyone to 'Menu'.");
-            if (NetworkManager.singleton != null)
-            {
-                NetworkManager.singleton.ServerChangeScene("Menu");
-                if (stopHostWhenHostPressesMenu)
-                {
-                    StartCoroutine(KillNetworkManagerDelayed());
-                }
-            }
-        }
-        else
-        {
-            // Клиент: отключаем и грузим меню
-            Debug.Log("[PauseMenu] Local player is client -> disconnecting client and loading local Menu scene.");
-            if (NetworkManager.singleton != null)
-            {
-                NetworkManager.singleton.StopClient();
-                Destroy(NetworkManager.singleton.gameObject); // <<< костыль
-            }
-            SceneManager.LoadScene("Menu");
-        }
+        MenuActions.GoToMenu(stopHostWhenHostPressesMenu, this);
     }
 
     IEnumerator KillNetworkManagerDelayed()

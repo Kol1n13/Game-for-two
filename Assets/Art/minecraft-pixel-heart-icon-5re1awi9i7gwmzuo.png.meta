@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: f7983c13c9077904aa8fd6afd03afaf8
+guid: 54731190712c8cf4f899c8429ca542e7
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 8690999461234096150
-    second: square_stone_detail_recolored_0
+      213: -5345984793493641928
+    second: minecraft-pixel-heart-icon-5re1awi9i7gwmzuo_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -100,13 +100,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: square_stone_detail_recolored_0
+      name: minecraft-pixel-heart-icon-5re1awi9i7gwmzuo_0
       rect:
         serializedVersion: 2
-        x: 37
-        y: 18
-        width: 182
-        height: 108
+        x: 0
+        y: 0
+        width: 1920
+        height: 1920
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -115,8 +115,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 61838fd86f1ac9870800000000000000
-      internalID: 8690999461234096150
+      spriteID: 835eb21972f3fc5b0800000000000000
+      internalID: -5345984793493641928
       vertices: []
       indices: 
       edges: []
@@ -135,7 +135,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      square_stone_detail_E_0: 2343756282102506784
+      minecraft-pixel-heart-icon-5re1awi9i7gwmzuo_0: -5345984793493641928
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
