@@ -7,16 +7,12 @@ public class knopka : MonoBehaviour
 {
     private Animator[] anims;
     private bool isActive = false;
-    [SerializeField] private GameObject[] doors;
+    [SerializeField] private AnomalyPortal[] portals;
     [SerializeField] [CanBeNull] private knopka pairButton;
     [SerializeField] [CanBeNull] private bool isPresent;
     [SerializeField] private Animator buttonAnimator;
     
     
-    void Start()
-    {
-         anims = doors.Select(door => door.GetComponent<Animator>()).ToArray();
-    }
 
     private void OnTriggerStay2D(Collider2D other)
     {
@@ -42,15 +38,14 @@ public class knopka : MonoBehaviour
 
         private void Activate()
     {
+        Debug.Log("ad");
         buttonAnimator.SetBool("pressed", true);
-        Array.ForEach(doors, door => door.GetComponent<BoxCollider2D>().enabled = false);
-        Array.ForEach(anims, anim => anim.Play("openDoor"));
+        Array.ForEach(portals, portal => portal.Activate());
     }
 
     private void DeActivate()
     {
         buttonAnimator.SetBool("pressed", false);
-        Array.ForEach(doors, door => door.GetComponent<BoxCollider2D>().enabled = true);
-        Array.ForEach(anims, anim => anim.Play("closeDoor"));
+        Array.ForEach(portals, portal => portal.DeActivate());
     }
 }
