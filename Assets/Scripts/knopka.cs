@@ -1,51 +1,174 @@
 using System;
-using System.Linq;
-using JetBrains.Annotations;
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
+using Mirror;
 
-public class knopka : MonoBehaviour
+[Serializable]
+public class PortalPair
 {
-    private Animator[] anims;
-    private bool isActive = false;
-    [SerializeField] private AnomalyPortal[] portals;
-    [SerializeField] [CanBeNull] private knopka pairButton;
-    [SerializeField] [CanBeNull] private bool isPresent;
-    [SerializeField] private Animator buttonAnimator;
-    
-    
+    public AnomalyPortal portalA;
+    public AnomalyPortal portalB;
+}
 
-    private void OnTriggerStay2D(Collider2D other)
+public class knopka : NetworkBehaviour
+{
+    [SerializeField] private PortalPair[] portalPairs;
+    [SerializeField] private Animator buttonAnimator;
+    [SerializeField] private int minCoins = 0;
+    [SerializeField] private int maxCoins = int.MaxValue;
+
+    [SyncVar(hook = nameof(OnButtonStateChanged))]
+    private bool syncIsActive = false;
+
+    private readonly HashSet<Collider2D> objectsOnButton = new HashSet<Collider2D>();
+
+    private void Start()
     {
-        if (other.CompareTag("Player"))
-        {
-            if (pairButton)
-                pairButton.Activate();
-        }
-        Activate();
-        Debug.Log("voshel");
+        UpdateButtonVisual();
     }
-    
+
+    private void OnButtonStateChanged(bool oldValue, bool newValue)
+    {
+        Debug.Log($"Button state changed to: {newValue}");
+        UpdateButtonVisual();
+        UpdatePortalsState(newValue);
+    }
+
+    private void UpdateButtonVisual()
+    {
+        if (buttonAnimator != null)
+            buttonAnimator.SetBool("pressed", syncIsActive);
+    }
+
+    [ServerCallback]
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other == null) return;
+        
+        // Проверяем и игрока и коробку
+        if (other.CompareTag("Player") || other.CompareTag("box"))
+        {
+            objectsOnButton.Add(other);
+            Debug.Log($"{other.tag} entered button. Total objects: {objectsOnButton.Count}");
+            
+            // Проверяем, достаточно ли монет для активации
+            CheckButtonActivation();
+        }
+    }
+
+    [ServerCallback]
     private void OnTriggerExit2D(Collider2D other)
     {
-        if (other.CompareTag("Player"))
+        if (other == null) return;
+        
+        if (other.CompareTag("Player") || other.CompareTag("box"))
         {
-            if (pairButton)
-                pairButton.DeActivate();
+            objectsOnButton.Remove(other);
+            Debug.Log($"{other.tag} exited button. Total objects: {objectsOnButton.Count}");
+            
+            // Проверяем, нужно ли деактивировать кнопку
+            CheckButtonActivation();
         }
-        Debug.Log(other.tag);
-        DeActivate();
     }
 
-        private void Activate()
+    [Server]
+    private void CheckButtonActivation()
     {
-        Debug.Log("ad");
-        buttonAnimator.SetBool("pressed", true);
-        Array.ForEach(portals, portal => portal.Activate());
+        // Если на кнопке нет объектов, деактивируем
+        if (objectsOnButton.Count == 0)
+        {
+            if (syncIsActive)
+            {
+                syncIsActive = false;
+                Debug.Log("Button deactivated - no objects on button");
+            }
+            return;
+        }
+
+        // Проверяем, достаточно ли монет для активации
+        bool hasEnoughCoins = CheckCoinsCondition();
+        
+        if (hasEnoughCoins && !syncIsActive)
+        {
+            syncIsActive = true;
+            Debug.Log("Button activated - enough coins and objects on button");
+        }
+        else if (!hasEnoughCoins && syncIsActive)
+        {
+            syncIsActive = false;
+            Debug.Log("Button deactivated - not enough coins");
+        }
     }
 
-    private void DeActivate()
+    [Server]
+    private bool CheckCoinsCondition()
     {
-        buttonAnimator.SetBool("pressed", false);
-        Array.ForEach(portals, portal => portal.DeActivate());
+        if (CoinManager.Instance != null)
+        {
+            int coins = CoinManager.Instance.GetTotalCoins();
+            bool hasEnoughCoins = coins >= minCoins && coins <= maxCoins;
+            Debug.Log($"Coins check: {coins}, required: {minCoins}-{maxCoins}, result: {hasEnoughCoins}");
+            return hasEnoughCoins;
+        }
+        
+        Debug.LogWarning("CoinManager.Instance is null. Allowing activation without coin check.");
+        return true; // Если CoinManager не существует, разрешаем активацию
+    }
+
+    [Server]
+    private void UpdatePortalsState(bool active)
+    {
+        if (portalPairs == null) return;
+
+        foreach (var pair in portalPairs)
+        {
+            if (pair == null) continue;
+            
+            if (pair.portalA != null)
+            {
+                pair.portalA.SetActive(active);
+                Debug.Log($"Setting portalA {pair.portalA.name} to {active}");
+            }
+            
+            if (pair.portalB != null)
+            {
+                pair.portalB.SetActive(active);
+                Debug.Log($"Setting portalB {pair.portalB.name} to {active}");
+            }
+        }
+    }
+
+    // Обработка изменения количества монет
+    private IEnumerator SubscribeWhenCoinManagerReady()
+    {
+        while (CoinManager.Instance == null)
+            yield return null;
+        CoinManager.OnTotalCoinsChanged += OnTotalCoinsChanged;
+    }
+
+    [Server]
+    private void OnTotalCoinsChanged(int newTotal)
+    {
+        // При изменении количества монет проверяем состояние кнопки
+        CheckButtonActivation();
+    }
+
+    private void OnEnable()
+    {
+        if (CoinManager.Instance != null)
+        {
+            CoinManager.OnTotalCoinsChanged += OnTotalCoinsChanged;
+        }
+        else
+        {
+            StartCoroutine(SubscribeWhenCoinManagerReady());
+        }
+    }
+
+    private void OnDisable()
+    {
+        if (CoinManager.Instance != null)
+            CoinManager.OnTotalCoinsChanged -= OnTotalCoinsChanged;
     }
 }
